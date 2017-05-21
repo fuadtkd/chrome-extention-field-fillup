@@ -1,0 +1,35 @@
+{
+  "manifest_version": 2,
+  "name": "Chrome Test Case Player",
+  "version": "1.0.0",
+
+  "browser_action": {
+    "default_icon": "a.png",
+    "default_title": "TEST PLAYER BETA"
+  },
+   "background": {
+    "scripts": [
+      "background.js"
+    ],
+    "persistent": true
+  },
+  
+  "permissions": [
+    "https://*/*",
+    "http://*/*",
+    "activeTab"
+  ],
+
+"content_scripts": [
+  {
+    "matches": [
+      "<all_urls>"
+    ],
+    "js": ["jquery-3.2.1.js", "a.json"]
+  }
+]
+
+}
+
+
+
