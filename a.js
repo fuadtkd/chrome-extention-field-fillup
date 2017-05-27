@@ -5,15 +5,20 @@ $.getJSON("a.json", function(json) {
 
     var testObject = ["M", "N"];
 
+    var radioArray =[];
+
     var retrievedObject1 = localStorage.getItem('testObject' + document.title);
 
     var retrievedObject = JSON.parse(retrievedObject1)
 
+
+   // window.localStorage.clear();
     console.log(retrievedObject);
+    var radioSelect =0;
 
     for (i in visualDomElts) {
         if (document.getElementById(i) != null) {
-            if (document.getElementById(i).type == 'text') {
+            if (document.getElementById(i).type == 'text' || document.getElementById(i).type == 'email' || document.getElementById(i).type == 'search' || document.getElementById(i).type == 'url' ) {
                 //alert(document.getElementById(i).value);
 
                 if (document.getElementById(i).value.length < 1) {
@@ -22,7 +27,8 @@ $.getJSON("a.json", function(json) {
                     */
 
                     var flag = 0;
-
+                    
+                    if(retrievedObject!=null){
                     for (var ii = 0; ii < retrievedObject.length; ++ii) {
 
                         //console.log("F="+retrievedObject[ii]);
@@ -31,7 +37,7 @@ $.getJSON("a.json", function(json) {
                             flag = 1;
                         }
                     }
-
+                    }
                     if (flag == 0) {
                         // Now fill up from configuration file                     
                         for (var jk in json) {
@@ -48,28 +54,119 @@ $.getJSON("a.json", function(json) {
                         }
                     }
                     if (flag == 0) {
+                       
+                       console.log("E="+document.getElementById(i).type);
+
+                        if( document.getElementById(i).type =='email'){
+                        document.getElementById(i).value = "random@test.com";
+                        console.log("ÖK");
+                        }
+                        else if( document.getElementById(i).type =='url')
+                        document.getElementById(i).value = "http://www.test.com";  
+                        else
                         document.getElementById(i).value = "Random";
+                           
                     }
                 } else {
                     //  push this value to browser cache
+                    
+                   var kk=0;
+                 
+                 if(retrievedObject!=null){
+                   for(var r;r<retrievedObject.length;++r)
+                   {
+                     if (retrievedObject[r]==i)
+                     {
+                      kk=1;
+                       retrievedObject[r+1]=document.getElementById(i).value;
+                     }
+                   }
+                  }  
+                   if (kk==0) {
                     testObject.push(i);
                     testObject.push(document.getElementById(i).value);
-
+                   }
                 }
 
             }
             if (document.getElementById(i).type == 'checkbox')
                 document.getElementById(i).checked = true;
             if (document.getElementById(i).type == 'radio')
-                document.getElementById(i).checked = true;
-            if (document.getElementById(i).type == '"select-one"')
+            {    
+                if(document.getElementById(i).checked == true)
+                {
+                    testObject.push(i);
+                    testObject.push(1);
+                    radioSelect =1;
+                }
+                else
+                {
+                    radioArray.push(i);
+                    radioArray.push(0);
+                }    
+
+
+            }
+            if (document.getElementById(i).type == "select-one")
                 document.getElementById(i).value = 1;
         }
     }
 
+    if(radioSelect == 0)
+    {    
+       // first fill it up from previous history
+        if(retrievedObject!=null){
+                    
+        for (var ii = 0; ii < retrievedObject.length; ii+=2) {
+        
+          if (document.getElementById(retrievedObject[ii])!=null && document.getElementById(retrievedObject[ii]).type == "radio")
+             
+            for (var ri = 0; ri < radioArray.length; ri+=2) {
+             // console.log(radioArray[ri]);
+               if(retrievedObject[ii] == radioArray[ri])
+               {
+                document.getElementById(retrievedObject[ii]).checked = true;
+                radioSelect =1;
+               } 
+            }
+        }
+        }
+       // now fill it up with random value
+       
+          if(radioSelect==0 && radioArray.length>0)
+          {
+                document.getElementById(radioArray[0]).checked = true; 
+          }  
+    
+    }// end of radio select
+
 
     //for(var ik in testObject)
     //  console.log("M="+ik);
+
+   console.log(testObject);
+    if(retrievedObject!=null){
+                    
+    for (var ii = 0; ii < retrievedObject.length; ii+=2) {
+        var oldPush=1;
+
+       for(var jj=0;jj<testObject.length;jj+=2 )
+       {
+         if(retrievedObject[ii]==testObject[jj])
+         {
+           oldPush=0;
+         }
+       }
+       if(oldPush==1)
+       {
+          testObject.push(retrievedObject[ii]);
+          testObject.push(retrievedObject[ii+1]);
+       }
+
+    }
+} 
+
+console.log(testObject);
 
     localStorage.setItem('testObject' + document.title, JSON.stringify(testObject));
 
