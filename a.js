@@ -16,6 +16,27 @@ $.getJSON("a.json", function(json) {
     console.log(retrievedObject);
     var radioSelect =0;
 
+if(retrievedObject!=null){
+                    
+    for (var ii = 0; ii < retrievedObject.length; ii+=2) {
+        var oldPush=1;
+
+       for(var jj=0;jj<testObject.length;jj+=2 )
+       {
+         if(retrievedObject[ii]==testObject[jj])
+         {
+           oldPush=0;
+         }
+       }
+       if(oldPush==1)
+       {
+          testObject.push(retrievedObject[ii]);
+          testObject.push(retrievedObject[ii+1]);
+       }
+
+    }
+} 
+
     for (i in visualDomElts) {
         if (document.getElementById(i) != null) {
             if (document.getElementById(i).type == 'text' || document.getElementById(i).type == 'email' || document.getElementById(i).type == 'search' || document.getElementById(i).type == 'url' ) {
@@ -145,26 +166,7 @@ $.getJSON("a.json", function(json) {
     //  console.log("M="+ik);
 
    console.log(testObject);
-    if(retrievedObject!=null){
-                    
-    for (var ii = 0; ii < retrievedObject.length; ii+=2) {
-        var oldPush=1;
-
-       for(var jj=0;jj<testObject.length;jj+=2 )
-       {
-         if(retrievedObject[ii]==testObject[jj])
-         {
-           oldPush=0;
-         }
-       }
-       if(oldPush==1)
-       {
-          testObject.push(retrievedObject[ii]);
-          testObject.push(retrievedObject[ii+1]);
-       }
-
-    }
-} 
+    
 
 console.log(testObject);
 
