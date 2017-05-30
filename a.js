@@ -38,14 +38,17 @@ if(retrievedObject!=null){
 } 
 
     for (i in visualDomElts) {
+       // console.log("M="+i);
         if (document.getElementById(i) != null) {
-            if (document.getElementById(i).type == 'text' || document.getElementById(i).type == 'email' || document.getElementById(i).type == 'search' || document.getElementById(i).type == 'url' ) {
+            if (document.getElementById(i).type == 'text' || document.getElementById(i).type == 'email' || document.getElementById(i).type == 'search' || document.getElementById(i).type == 'url' || document.getElementById(i).type == 'number') {
                 //alert(document.getElementById(i).value);
-
+                
                 if (document.getElementById(i).value.length < 1) {
                     /* Since this field is empty we need to
                        fill it up from 1) json file or 2) browser cache 3) Random
                     */
+
+                   // console.log("i="+i+document.getElementById(i).value);
 
                     var flag = 0;
                     
@@ -125,8 +128,6 @@ if(retrievedObject!=null){
                     radioArray.push(i);
                     radioArray.push(0);
                 }    
-
-
             }
             if (document.getElementById(i).type == "select-one")
                 document.getElementById(i).value = 1;
