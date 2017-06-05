@@ -1,4 +1,4 @@
-$.getJSON("a.json", function(json) {
+$.getJSON(chrome.extension.getURL("a.json"), function(json) {
 
 
     var visualDomElts = document.body.getElementsByTagName('*');
@@ -10,6 +10,12 @@ $.getJSON("a.json", function(json) {
     var retrievedObject1 = localStorage.getItem('testObject' + document.title);
 
     var retrievedObject = JSON.parse(retrievedObject1)
+
+var data = document.getElementById("first page");
+// JSON.parse does not evaluate the attacker's scripts.
+var parsed = JSON.parse(data);
+
+console.log("XXX="+parsed);
 
 
    // window.localStorage.clear();
@@ -40,7 +46,7 @@ if(retrievedObject!=null){
     for (i in visualDomElts) {
        // console.log("M="+i);
         if (document.getElementById(i) != null) {
-            if (document.getElementById(i).type == 'text' || document.getElementById(i).type == 'email' || document.getElementById(i).type == 'search' || document.getElementById(i).type == 'url' || document.getElementById(i).type == 'number') {
+            if (document.getElementById(i).type == 'text'||document.getElementById(i).type == 'search'||document.getElementById(i).type =='tel'||document.getElementById(i).type =='password' || document.getElementById(i).type == 'email' || document.getElementById(i).type == 'search' || document.getElementById(i).type == 'url' || document.getElementById(i).type == 'number') {
                 //alert(document.getElementById(i).value);
                 
                 if (document.getElementById(i).value.length < 1) {
@@ -87,6 +93,12 @@ if(retrievedObject!=null){
                         }
                         else if( document.getElementById(i).type =='url')
                         document.getElementById(i).value = "http://www.test.com";  
+                        else if( document.getElementById(i).type =='number' )
+                        document.getElementById(i).value = "19";  
+                        else if( document.getElementById(i).type =='tel')
+                        document.getElementById(i).value = "01900000000";  
+                        else if( document.getElementById(i).type =='password')
+                        document.getElementById(i).value = "hidden_password";   
                         else
                         document.getElementById(i).value = "Random";
                            
