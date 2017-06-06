@@ -15,7 +15,7 @@ var data = document.getElementById("first page");
 // JSON.parse does not evaluate the attacker's scripts.
 var parsed = JSON.parse(data);
 
-console.log("XXX="+parsed);
+//console.log("T="+parsed);
 
 
    // window.localStorage.clear();
@@ -44,8 +44,9 @@ if(retrievedObject!=null){
 } 
 
     for (i in visualDomElts) {
-       // console.log("M="+i);
         if (document.getElementById(i) != null) {
+         console.log("M="+i+" and type="+document.getElementById(i).type);
+        
             if (document.getElementById(i).type == 'text'||document.getElementById(i).type == 'search'||document.getElementById(i).type =='tel'||document.getElementById(i).type =='password' || document.getElementById(i).type == 'email' || document.getElementById(i).type == 'search' || document.getElementById(i).type == 'url' || document.getElementById(i).type == 'number') {
                 //alert(document.getElementById(i).value);
                 
@@ -142,7 +143,55 @@ if(retrievedObject!=null){
                 }    
             }
             if (document.getElementById(i).type == "select-one")
-                document.getElementById(i).value = 1;
+            {
+
+                 if (document.getElementById(i).value=='0'||document.getElementById(i).value=='') {
+                    
+                   
+                var flag = 0;
+                      
+                    if(retrievedObject!=null) {  
+                    for (var ii = 0; ii < retrievedObject.length; ++ii) {
+
+                        //console.log("F="+retrievedObject[ii+1]);
+                        if (retrievedObject[ii] == i) {
+                            document.getElementById(i).selectedIndex = retrievedObject[ii + 1];
+                            flag = 1;
+                            //console.log("Assigning from history");
+                        }
+                    }
+                   } 
+                if (flag == 0) {
+                        // Now fill up from configuration file                     
+                        for (var jk in json) {
+                            if (document.title === jk) {
+
+                                for (var ik in json[jk]) {
+                                    //console.log(ik+' ='+json[jk][ik]);
+                                    if (ik === i) {
+                                        document.getElementById(i).value = json[jk][ik];
+                                        flag = 1;
+                                        //console.log("Assigning from a.json");
+                                    }
+                                }
+                            }
+                        }
+                    } 
+
+                if(flag==0)
+                { 
+                console.log("Got here at random part");
+                document.getElementById(i).selectedIndex = 1;
+                }
+         
+                }
+                else
+                {
+                    testObject.push(i);
+                    testObject.push(document.getElementById(i).selectedIndex);
+                }
+
+            }
         }
     }
 

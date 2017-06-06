@@ -20,6 +20,10 @@
     "activeTab"
   ],
 
+  "web_accessible_resources": [
+    "a.json"
+  ],
+
 "content_scripts": [
   {
     "matches": [
