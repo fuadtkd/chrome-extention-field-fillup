@@ -45,11 +45,16 @@ if(retrievedObject!=null){
 
     for (i in visualDomElts) {
         if (document.getElementById(i) != null) {
-         console.log("M="+i+" and type="+document.getElementById(i).type);
+         //console.log("M="+i+" and type="+document.getElementById(i).type);
         
             if (document.getElementById(i).type == 'text'||document.getElementById(i).type == 'search'||document.getElementById(i).type =='tel'||document.getElementById(i).type =='password' || document.getElementById(i).type == 'email' || document.getElementById(i).type == 'search' || document.getElementById(i).type == 'url' || document.getElementById(i).type == 'number') {
                 //alert(document.getElementById(i).value);
                 
+                        document.getElementById(i).focus();
+                        document.getElementById(i).click();
+                        document.getElementById(i).placeholder = '';
+                        
+
                 if (document.getElementById(i).value.length < 1) {
                     /* Since this field is empty we need to
                        fill it up from 1) json file or 2) browser cache 3) Random
@@ -90,7 +95,7 @@ if(retrievedObject!=null){
 
                         if( document.getElementById(i).type =='email'){
                         document.getElementById(i).value = "random@test.com";
-                        console.log("ÖK");
+                        //console.log("ÖK");
                         }
                         else if( document.getElementById(i).type =='url')
                         document.getElementById(i).value = "http://www.test.com";  
@@ -99,10 +104,19 @@ if(retrievedObject!=null){
                         else if( document.getElementById(i).type =='tel')
                         document.getElementById(i).value = "01900000000";  
                         else if( document.getElementById(i).type =='password')
+                        {
+                        
+                        document.getElementById(i).focus();
+                        document.getElementById(i).click();
+                        document.getElementById(i).placeholder = '';
                         document.getElementById(i).value = "hidden_password";   
-                        else
+                        }
+                        else{
+                        document.getElementById(i).focus();
+                        document.getElementById(i).click();
+                        document.getElementById(i).placeholder = '';
                         document.getElementById(i).value = "Random";
-                           
+                        }   
                     }
                 } else {
                     //  push this value to browser cache
@@ -147,6 +161,8 @@ if(retrievedObject!=null){
 
                  if (document.getElementById(i).value=='0'||document.getElementById(i).value=='') {
                     
+                   // console.log("M="+i+" and type="+document.getElementById(i).type);
+        
                    
                 var flag = 0;
                       
@@ -180,7 +196,7 @@ if(retrievedObject!=null){
 
                 if(flag==0)
                 { 
-                console.log("Got here at random part");
+                //console.log("Got here at random part");
                 document.getElementById(i).selectedIndex = 1;
                 }
          
@@ -227,6 +243,35 @@ if(retrievedObject!=null){
     //for(var ik in testObject)
     //  console.log("M="+ik);
 
+for (i in visualDomElts) {
+        if (document.getElementById(i) != null) {
+        
+            if (document.getElementById(i).type == "select-one"||document.getElementById(i).type == 'text'||document.getElementById(i).type == 'search'||document.getElementById(i).type =='tel'||document.getElementById(i).type =='password' || document.getElementById(i).type == 'email' || document.getElementById(i).type == 'search' || document.getElementById(i).type == 'url' || document.getElementById(i).type == 'number') {
+             
+            // console.log("X="+document.getElementById(i).type+" J="+i);
+             console.log("here I am ");
+                        document.getElementById(i).focus();
+                        document.getElementById(i).click();
+                        document.getElementById(i).placeholder = '';
+            }
+
+  }
+}
+
+for (i in visualDomElts) {
+        if (document.getElementById(i) != null) {
+        
+            if (document.getElementById(i).type == "select-one"||document.getElementById(i).type == 'text'||document.getElementById(i).type == 'search'||document.getElementById(i).type =='tel'||document.getElementById(i).type =='password' || document.getElementById(i).type == 'email' || document.getElementById(i).type == 'search' || document.getElementById(i).type == 'url' || document.getElementById(i).type == 'number') {
+             
+            // console.log("X="+document.getElementById(i).type+" J="+i);
+             console.log("here I am 2");
+                        document.getElementById(i).focus();
+                        document.getElementById(i).click();
+                        document.getElementById(i).placeholder = '';
+            }
+
+  }
+}
    console.log(testObject);
     
 
